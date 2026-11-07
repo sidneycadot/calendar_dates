@@ -234,6 +234,7 @@ class JulianCalendarDate(AbstractCalendarDate):
     @staticmethod
     def _year_julian_day_number(normalized_year: int) -> int:
         """Calculate the Julian day number of March 1st of a normalized year, according to the Julian calendar."""
+        # Note: 1721118 is the Julian day number of March 1st, 1 BCE (normalized year 0) in the Julian calendar.
         return 1721118 + (normalized_year * 365) + (normalized_year // 4)
 
 
@@ -250,4 +251,5 @@ class GregorianCalendarDate(AbstractCalendarDate):
     @staticmethod
     def _year_julian_day_number(normalized_year: int) -> int:
         """Calculate the Julian day number of March 1st of a normalized year, according to the Gregorian calendar."""
+        # Note: 1721120 is the Julian day number of March 1st, 1 BCE (normalized year 0) in the Gregorian calendar.
         return 1721120 + (normalized_year * 365) + (normalized_year // 4) - (normalized_year // 100) + (normalized_year // 400)
