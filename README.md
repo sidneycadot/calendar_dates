@@ -65,7 +65,7 @@ Years are given as signed integers: positive for CE, negative for BCE. For examp
 ## Running the tests
 
 ```sh
-python test_calendar.py
+python test_calendar_dates.py
 ```
 
 The tests check both conversion directions for every day from Julian Day 0 up to the year 5000 in both calendars, and the comparison operators across the two calendars.
