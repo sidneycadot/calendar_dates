@@ -6,7 +6,7 @@
 
 import unittest
 
-from calendar import JulianCalendarDate, GregorianCalendarDate
+from calendar_dates import JulianCalendarDate, GregorianCalendarDate
 
 
 class TestJulianCalendarDate(unittest.TestCase):
