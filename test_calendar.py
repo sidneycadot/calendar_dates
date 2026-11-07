@@ -150,6 +150,26 @@ class TestAbstractCalendarDates(unittest.TestCase):
                 self.assertEqual(date_1 >  date_2, date_1.to_julian_day_number() >  date_2.to_julian_day_number())
                 self.assertEqual(date_1 >= date_2, date_1.to_julian_day_number() >= date_2.to_julian_day_number())
 
+    def test_comparison_with_non_dates(self):
+        """Comparing a date with a non-date gives False/True for ==/!= and TypeError for ordering."""
+
+        date = GregorianCalendarDate(2000, 1, 1)
+
+        # Note: a date unpacks to the tuple (2000, 1, 1), but must not compare equal to it.
+        for other in (None, 5, "2000-01-01", (2000, 1, 1)):
+            with self.subTest(other=other):
+                self.assertFalse(date == other)
+                self.assertTrue(date != other)
+                self.assertNotIn(date, [other])
+                with self.assertRaises(TypeError):
+                    _ = date < other
+                with self.assertRaises(TypeError):
+                    _ = date <= other
+                with self.assertRaises(TypeError):
+                    _ = date > other
+                with self.assertRaises(TypeError):
+                    _ = date >= other
+
 
 if __name__ == "__main__":
     unittest.main()

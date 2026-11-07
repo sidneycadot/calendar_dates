@@ -81,28 +81,41 @@ class AbstractCalendarDate:
     # not their _representations_. For example, the value 3 of type 'int' compares equal to
     # the value 3.0 of type 'float'.
 
-    def __lt__(self, rhs: AbstractCalendarDate) -> bool:
+    #
+    # If the right hand side is not a calendar date, the operators return NotImplemented. Python
+    # then lets the other operand try the comparison; if that also fails, '==' and '!=' fall back
+    # to an identity check (so 'date == None' is False), and the ordering operators raise TypeError.
+    #
+    # The '!=' operator is not defined here; Python derives it from '__eq__'.
+
+    def __lt__(self, rhs: object) -> bool:
         """Return True if the lhs date is strictly before the rhs date, False otherwise."""
+        if not isinstance(rhs, AbstractCalendarDate):
+            return NotImplemented
         return self.to_julian_day_number() < rhs.to_julian_day_number()
 
-    def __le__(self, rhs: AbstractCalendarDate) -> bool:
+    def __le__(self, rhs: object) -> bool:
         """Return True if the lhs date is before or on the rhs date, False otherwise."""
+        if not isinstance(rhs, AbstractCalendarDate):
+            return NotImplemented
         return self.to_julian_day_number() <= rhs.to_julian_day_number()
 
-    def __eq__(self, rhs: AbstractCalendarDate) -> bool:
-        """Return True if the lhs date is on the same day as the right hand side day, False otherwise."""
+    def __eq__(self, rhs: object) -> bool:
+        """Return True if the lhs date is on the same day as the rhs date, False otherwise."""
+        if not isinstance(rhs, AbstractCalendarDate):
+            return NotImplemented
         return self.to_julian_day_number() == rhs.to_julian_day_number()
 
-    def __ne__(self, rhs: AbstractCalendarDate) -> bool:
-        """Return True if the lhs date is not on the same day as the right hand side day, False otherwise."""
-        return self.to_julian_day_number() != rhs.to_julian_day_number()
-
-    def __gt__(self, rhs: AbstractCalendarDate) -> bool:
-        """Return True if the lhs date strictly after the right hand side day, False otherwise."""
+    def __gt__(self, rhs: object) -> bool:
+        """Return True if the lhs date is strictly after the rhs date, False otherwise."""
+        if not isinstance(rhs, AbstractCalendarDate):
+            return NotImplemented
         return self.to_julian_day_number() > rhs.to_julian_day_number()
 
-    def __ge__(self, rhs: AbstractCalendarDate) -> bool:
-        """Return True if the lhs date is on or after the right hand side day, False otherwise."""
+    def __ge__(self, rhs: object) -> bool:
+        """Return True if the lhs date is on or after the rhs date, False otherwise."""
+        if not isinstance(rhs, AbstractCalendarDate):
+            return NotImplemented
         return self.to_julian_day_number() >= rhs.to_julian_day_number()
 
     def __next__(self: TCalendarDate) -> TCalendarDate:
