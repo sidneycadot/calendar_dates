@@ -1,4 +1,4 @@
-# calendar
+# calendar_dates
 
 A small, dependency-free Python module for working with dates in the **proleptic Julian** and **proleptic Gregorian** calendars, and for converting them to and from **Julian Day Numbers**.
 
