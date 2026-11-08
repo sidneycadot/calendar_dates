@@ -255,6 +255,8 @@ class GregorianCalendarDate(AbstractCalendarDate):
     @staticmethod
     def _leapyear_rule(normalized_year: int) -> bool:
         """Is the normalized year a leapyear, according to the Gregorian calendar?"""
+        # Equivalent to: divisible by 4, but not by 100 unless also by 400.
+        # (The XOR works because a year divisible by 400 is also divisible by 100 and 4.)
         return is_divisible_by(normalized_year, 4) ^ is_divisible_by(normalized_year, 100) ^ is_divisible_by(normalized_year, 400)
 
     @staticmethod
