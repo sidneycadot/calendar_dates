@@ -47,6 +47,9 @@ class AbstractCalendarDate:
 
     def __init__(self, year: int, month: int, day: int):
         """Generic initialization of a calendar date (Gregorian or Julian)."""
+        if not all(isinstance(value, int) for value in (year, month, day)):
+            raise TypeError("Year, month, and day must be integers.")
+
         valid_date = (year != 0) and (1 <= month <= 12) and (1 <= day <= self.length_of_month(year, month))
         if not valid_date:
             raise ValueError("Attempt to initialize an invalid date.")
@@ -140,12 +143,18 @@ class AbstractCalendarDate:
     @classmethod
     def is_leapyear(cls, year: int) -> bool:
         """Return if the year is a leapyear according to the calendar's leapyear rule."""
+        if not isinstance(year, int):
+            raise TypeError("Year must be an integer.")
+
         normalized_year = normalize_year(year)
         return cls._leapyear_rule(normalized_year)
 
     @classmethod
     def length_of_month(cls, year: int, month: int) -> int:
         """Return the length of the specified month in the specified year."""
+
+        if not all(isinstance(value, int) for value in (year, month)):
+            raise TypeError("Year and month must be integers.")
 
         valid_month = (year != 0) and (1 <= month <= 12)
         if not valid_month:

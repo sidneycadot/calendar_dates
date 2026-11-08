@@ -170,6 +170,24 @@ class TestAbstractCalendarDates(unittest.TestCase):
                 with self.assertRaises(TypeError):
                     _ = date >= other
 
+    def test_non_integer_arguments(self):
+        """Non-integer year, month, or day arguments raise TypeError."""
+
+        for args in ((2000.0, 1, 1), (2000, 1.0, 1), (2000, 1, 1.5), ("2000", 1, 1)):
+            with self.subTest(args=args):
+                with self.assertRaises(TypeError):
+                    GregorianCalendarDate(*args)
+
+        for args in ((2000.0, 1), (2000, 1.0), ("2000", 1)):
+            with self.subTest(args=args):
+                with self.assertRaises(TypeError):
+                    GregorianCalendarDate.length_of_month(*args)
+
+        for year in (2000.0, "2000"):
+            with self.subTest(year=year):
+                with self.assertRaises(TypeError):
+                    GregorianCalendarDate.is_leapyear(year)
+
 
 if __name__ == "__main__":
     unittest.main()
